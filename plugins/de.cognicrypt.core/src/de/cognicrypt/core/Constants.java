@@ -276,8 +276,8 @@ public class Constants {
 	// Page constants
 
 	public static final String PAGE_NAME_FOR_MODE_OF_WIZARD = "pageForChoiceOfModeOfWizard";
-	public static final String PAGE_TITLE_FOR_MODE_OF_WIZARD = "Please select the mode for the wizard";
-	public static final String PAGE_DESCRIPTION_FOR_MODE_OF_WIZARD = "Here you can update the basic details of the task, and the mode in which the wizard will run.";
+	public static final String PAGE_TITLE_FOR_MODE_OF_WIZARD = "New Task";
+	public static final String PAGE_DESCRIPTION_FOR_MODE_OF_WIZARD = "Provide basic details of the task and add templates";
 
 	public static final String PAGE_NAME_FOR_CLAFER_FILE_CREATION = "pageForClaferFileCreation";
 	public static final String PAGE_TITLE_FOR_CLAFER_FILE_CREATION = "Add the variablity modelling here";
