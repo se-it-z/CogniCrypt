@@ -14,12 +14,18 @@ import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.PaintEvent;
+import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.GC;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.FileDialog;
@@ -92,19 +98,13 @@ public class CompositeBrowseForFile extends Composite {
 		gridLayout.horizontalSpacing = 8;
 		setLayout(gridLayout);
 
-		final Label label = new Label(this, SWT.NONE);
-		label.setText(labelText);
-
-		// Initialize the decorator for the label for the text box.
-		setDecFilePath(new ControlDecoration(label, SWT.TOP | SWT.RIGHT));
-		getDecFilePath().setShowOnlyOnFocus(false);
-
-		// Initial error state.
-		getDecFilePath().setImage(UIConstants.DEC_ERROR);
-		getDecFilePath().setDescriptionText(Constants.ERROR + Constants.ERROR_MESSAGE_BLANK_FILE_NAME);
-		getDecFilePath().showHoverText(getDecFilePath().getDescriptionText());
+		final Button browseButton = new Button(this, SWT.NONE);
+		browseButton.setText(Constants.LABEL_BROWSE_BUTTON);
+		
+		
 
 		this.textBox = new Text(this, SWT.BORDER);
+		this.textBox.setMessage(labelText);
 		final GridData gdTextBox = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
 		
 		// do not claim space for all the text if not available
@@ -112,15 +112,22 @@ public class CompositeBrowseForFile extends Composite {
 		this.textBox.setLayoutData(gdTextBox);
 		this.txtBoxOption = new Text(this, SWT.BORDER);
 		final GridData gdTextBoxOption = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
-		
+
 		// do not claim space for all the text if not available
 		gdTextBoxOption.widthHint = 100;
 		this.txtBoxOption.setLayoutData(gdTextBoxOption);
 		if(!labelText.equals(Constants.WIDGET_DATA_LOCATION_OF_CRYSLTEMPLATE_FILE)) {
 			this.txtBoxOption.setVisible(false);
 		}
-		final Button browseButton = new Button(this, SWT.NONE);
-		browseButton.setText(Constants.LABEL_BROWSE_BUTTON);
+		
+		// Initialize the decorator for the text box.
+		setDecFilePath(new ControlDecoration(textBox, SWT.TOP | SWT.LEFT));
+		getDecFilePath().setShowOnlyOnFocus(false);
+
+		// Initial error state.
+		getDecFilePath().setImage(UIConstants.DEC_ERROR);
+		getDecFilePath().setDescriptionText(Constants.ERROR + Constants.ERROR_MESSAGE_BLANK_FILE_NAME);
+		getDecFilePath().showHoverText(getDecFilePath().getDescriptionText());
 
 		browseButton.addSelectionListener(new SelectionAdapter() {
 
@@ -157,6 +164,7 @@ public class CompositeBrowseForFile extends Composite {
 				getDecFilePath().setImage(UIConstants.DEC_ERROR);
 				getDecFilePath().setDescriptionText(Constants.ERROR + Constants.ERROR_MESSAGE_UNABLE_TO_READ_FILE);
 				getDecFilePath().showHoverText(getDecFilePath().getDescriptionText());
+			
 				// Check if the page can be set to completed.
 				getTheLocalContainerPage().checkIfModeSelectionPageIsComplete();
 			} else {
@@ -288,5 +296,4 @@ public class CompositeBrowseForFile extends Composite {
 	private void setDecFilePath(final ControlDecoration decFilePath) {
 		this.decFilePath = decFilePath;
 	}
-
 }

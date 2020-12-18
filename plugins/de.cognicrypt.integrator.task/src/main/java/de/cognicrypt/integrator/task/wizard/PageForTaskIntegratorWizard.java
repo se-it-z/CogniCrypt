@@ -11,6 +11,8 @@
 package de.cognicrypt.integrator.task.wizard;
 
 import java.util.ArrayList;
+
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
@@ -19,6 +21,8 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
+
 import de.cognicrypt.codegenerator.question.Question;
 import de.cognicrypt.core.Constants;
 import de.cognicrypt.integrator.task.Activator;
@@ -43,6 +47,9 @@ public class PageForTaskIntegratorWizard extends WizardPage {
 		setTitle(title);
 		setDescription(description);
 		setPageComplete(false);
+		
+		final ImageDescriptor image = AbstractUIPlugin.imageDescriptorFromPlugin("de.cognicrypt.codegenerator", "platform:/plugin/de.cognicrypt.core/icons/cognicrypt-medium.png ");
+		setImageDescriptor(image);
 	}
 
 	/**
